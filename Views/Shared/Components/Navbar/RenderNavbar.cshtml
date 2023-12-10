@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LoaiHang>
+
+<style>
+    li button {
+        background: none;
+        color: white;
+        border: none;
+        display: block;
+        height: 100%;
+        padding: 1rem;
+    }
+
+        li button:hover {
+            background: rgb(230, 50, 50);
+        }
+
+</style>
+<ul>
+    @foreach (var loaihang in Model)
+    {
+        <li class="d-flex overflow-hidden">
+            <button type="button"
+                    onclick="HandleNavbarChange(@loaihang.MaLoai)">
+                @loaihang.TenLoai
+            </button>
+        </li>
+    }
+    <li>
+        <a asp-action="Create" asp-controller="HangHoas">Tạo mới</a>
+    </li>
+</ul>
+
+
+
+<script>
+    function HandleNavbarChange(maloai) {
+        if (window.location.href.indexOf('HangHoas')) window.location = `/Home/Index?maloai=${maloai}`;
+        else
+            $.ajax({
+                url: `/Home/ListProduct?maloai=${maloai}`,
+                method: "GET",
+                success: function (response) {
+                    document.querySelector('.content-middle').innerHTML = response;
+                }
+            });
+    }
+</script>

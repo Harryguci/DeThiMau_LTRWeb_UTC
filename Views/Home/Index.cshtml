@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    int pageNum = (int?)ViewBag.PageNum ?? 1;
+    int pageIndex = (int?)ViewBag.PageIndex ?? 1;
+    int maLoai = (int?)ViewBag.MaLoai ?? 0;
+}
+@model IEnumerable<HangHoa>
+
+
+<!-- Begin New Product -->
+<div class="content_top">
+    <div class="heading">
+        <h3>Chu Quang Huy</h3>
+    </div>
+    <div class="see">
+        <p><a href="#">See all Products</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content-middle">
+    <div class="section group" id="list-product">
+        @foreach (var product in Model)
+        {
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html"><img src="/images/@product.Anh" alt="" /></a>
+                <h2>@product.TenHang</h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">$@product.Gia</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="preview.html">Add to Cart</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    @if (pageIndex > 1)
+                    {
+                        <a class="page-link" aria-label="Previous"
+                           asp-controller="Home"
+                           asp-action="Index"
+                           asp-route-pageIndex="@(pageIndex - 1)"
+                           asp-route-maloai="@maLoai"
+                           class="page-link">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    }
+                </li>
+                @for (int i = 1; i <= pageNum; i++)
+                {
+                    string classname = "page-item";
+
+                    if (pageIndex == i)
+                    {
+                        classname = "page-item active";
+                    }
+                    <li class="@(classname)">
+                        <a asp-controller="Home"
+                           asp-action="Index"
+                           asp-route-pageIndex="@i"
+                           asp-route-maloai="@maLoai"
+                           class="page-link">
+                            @i
+                        </a>
+                    </li>
+                }
+                @if (pageIndex < pageNum)
+                {
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" 
+                            asp-controller="Home"
+                           asp-action="Index"
+                           asp-route-pageIndex="@(pageIndex + 1)"
+                           asp-route-maloai="@maLoai"
+                           class="page-link">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- End New Product -->
+@section Scripts{
+    <script>
+        function HandlePageIndexChange(pageIndex) {
+            $.ajax({
+                url: `/Home/ListProduct?maloai=${@maLoai}&pageIndex=${pageIndex}`,
+                method: "GET",
+                success: function (response) {
+                    document.querySelector('.content-middle')
+                        .innerHTML = response;
+                }
+            });
+        }
+    </script>
+}

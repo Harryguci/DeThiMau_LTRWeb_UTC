@@ -1,0 +1,84 @@
+﻿@model BaiThiMau.Models.HangHoa
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var loaihangs = ViewBag.LoaiHangs;
+}
+<style>
+    .form-group {
+        margin: 1rem;
+    }
+
+        .form-group input {
+            display: block;
+        }
+</style>
+
+<h1>Tạo mới</h1>
+<h4>Hàng Hóa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaLoai" class="control-label"></label>
+                <select asp-for="MaLoai" class="form-control">
+                    @foreach (LoaiHang item in loaihangs)
+                    {
+                        <option value="@item.MaLoai">@item.TenLoai</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenHang" class="control-label"></label>
+                <input asp-for="TenHang" class="form-control" />
+                <span asp-validation-for="TenHang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gia" class="control-label"></label>
+                <input asp-for="Gia" class="form-control" />
+                <span asp-validation-for="Gia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anh" class="control-label"></label>
+                <input asp-for="Anh" type="hidden" class="form-control" />
+                <label style="background: rgb(50,50,200); color: white; display: block; padding: 0.6rem 1rem; width: max-content">
+                    Chọn ảnh
+                    <input type="file" name="imagefile" style="display:none" id="imagefile" onchange="HandleImageChange()" />
+                </label>
+                <span asp-validation-for="Anh" class="text-danger"></span>
+                <div class="thumbnail">
+                    <img id="image-preview" width="100" />
+                    <p id="file-name"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function HandleImageChange() {
+            var fileElement = document.querySelector('#imagefile');
+            if (fileElement.files) {
+                var imageUrl = URL.createObjectURL(fileElement.files[0]);
+                document.querySelector("#image-preview").src = imageUrl;
+                document.querySelector('#file-name').innerHTML += fileElement.files[0].name;
+
+                document.querySelector('#Anh').value = fileElement.files[0].name;
+            }
+        }
+    </script>
+}

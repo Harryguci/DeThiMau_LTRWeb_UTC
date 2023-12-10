@@ -1,0 +1,42 @@
+﻿
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Free Home Shoppe Website Template | Home :: w3layouts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BaiThiMau.styles.css" asp-append-version="true" />
+
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <!-- Begin Wrap -->
+    <div class="wrap">
+        <!-- Begin Header -->
+        <partial name="ChuQuangHuy_Header" />
+        <!-- End Header -->
+        <!-- Begin Main -->
+        <div class="main">
+            <div class="content">   
+                @RenderBody()
+            </div>
+        </div>
+        <!-- End Main -->
+    </div>
+    <!-- End Wrap -->
+    <!-- Begin Footer -->
+    <partial name="ChuQuangHuy_Footer" />
+    <!-- End Footer -->
+</body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script src="~/js/jquery-1.7.2.min.js" defer></script>
+<script src="~/js/jquery.accordion.js" defer></script>
+<script src="~/js/jquery.easing.js" defer></script>
+@RenderSection("Scripts", required: false)
+</html>
+
