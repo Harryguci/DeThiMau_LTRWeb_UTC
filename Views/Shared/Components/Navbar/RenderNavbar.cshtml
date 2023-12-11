@@ -16,6 +16,12 @@
 
 </style>
 <ul>
+    <li class="d-flex overflow-hidden">
+        <button type="button"
+                onclick="HandleNavbarChange(0)">
+            Tất cả
+        </button>
+    </li>
     @foreach (var loaihang in Model)
     {
         <li class="d-flex overflow-hidden">
@@ -26,7 +32,7 @@
         </li>
     }
     <li>
-        <a asp-action="Create" asp-controller="HangHoas">Tạo mới</a>
+        <a asp-action="Create" asp-controller="Home">Tạo mới</a>
     </li>
 </ul>
 
@@ -34,7 +40,7 @@
 
 <script>
     function HandleNavbarChange(maloai) {
-        if (window.location.href.indexOf('HangHoas')) window.location = `/Home/Index?maloai=${maloai}`;
+        if (window.location.href.indexOf('HangHoas') != -1) window.location = `/Home/Index?maloai=${maloai}`;
         else
             $.ajax({
                 url: `/Home/ListProduct?maloai=${maloai}`,

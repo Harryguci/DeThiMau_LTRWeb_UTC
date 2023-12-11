@@ -1,0 +1,57 @@
+﻿@model BaiThiMau.Models.HangHoa
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<style>
+    .form-group {
+        margin: 0.7rem 0;
+    }
+</style>
+
+<h1 class="text-center fs-1">Tạo Mới</h1>
+<h4 class="text-center fs-4">Hàng Hóa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaLoai" class="control-label"></label>
+                <select asp-for="MaLoai" class ="form-control">
+                    @foreach (LoaiHang item in (IEnumerable<LoaiHang>)ViewBag.LoaiHangs)
+                    {
+                        <option value="@item.MaLoai">@item.TenLoai</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenHang" class="control-label"></label>
+                <input asp-for="TenHang" class="form-control" />
+                <span asp-validation-for="TenHang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gia" class="control-label"></label>
+                <input asp-for="Gia" class="form-control" />
+                <span asp-validation-for="Gia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anh" class="control-label"></label>
+                <input asp-for="Anh" class="form-control" />
+                <span asp-validation-for="Anh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

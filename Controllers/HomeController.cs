@@ -53,6 +53,12 @@ namespace BaiThiMau.Controllers
             return View(hanghoa);
         }
 
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.LoaiHangs = await _dbContext.LoaiHangs.ToListAsync();
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

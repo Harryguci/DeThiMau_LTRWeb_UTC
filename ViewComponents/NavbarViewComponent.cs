@@ -12,7 +12,6 @@ namespace BaiThiMau.ViewComponents
         public NavbarViewComponent(QLHangHoaContext dbContext)
         {
             _dbContext = dbContext;
-
             _loaihangs = dbContext.LoaiHangs.ToList();
         }
 
